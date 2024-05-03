@@ -1,0 +1,5 @@
+copy paste these into ur terminal (VS Code):
+
+pip install pillow
+
+Run file authentication.py in order to execute
