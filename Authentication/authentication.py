@@ -12,7 +12,7 @@ class LoginForm():
         self.window.resizable(False, False)
         self.current_frame = 'login'
         # =============== Login Frame ================
-        self.lg_frame = Frame(self.window, bg='#FFFFFF', width=1280/8*6, height=600)
+        self.lg_frame = Frame(self.window, bg='#FFFFFF' , width=1280/8*6, height=600)
         # =============== Signup Frame ================
         self.su_frame = Frame(self.window, bg='#FFFFFF', width=1280/8*6, height=600)
         # =============== ForgetPass Frame ================
@@ -34,7 +34,7 @@ class LoginForm():
         photo = ImageTk.PhotoImage(self.side_image)
         self.side_image_label = Label(self.lg_frame, image=photo, bg= "#FFFFFF")
         self.side_image_label.image = photo
-        self.side_image_label.place(x=240, y= 40)  
+        self.side_image_label.place(x=240, y= 40) 
         # =============== Right Side Image ================
         #self.side_image = Image.open("rightside.jpg")
         #photo = ImageTk.PhotoImage(self.side_image)
@@ -55,7 +55,8 @@ class LoginForm():
         self.username_label.place(x=120, y=200)
 
         self.username_entry = Entry(self.lg_frame, highlightthickness=0, relief= FLAT, bg="#FFFFFF", fg="black", font=('yu gothic ui', 12, 'bold') )
-        self.username_entry.focus()
+        self.username_entry.focus_set()
+        self.username_entry.bind('<Return>', self.check_log)
         self.username_entry.place(x=150, y=240, width=270)
         self.username_line = Canvas(self.lg_frame, width= 350, height= 2.0, bg ="black", highlightthickness= 0)
         self.username_line.place(x=110,y=270)
@@ -66,12 +67,14 @@ class LoginForm():
         self.username_icon_label = Label(self.lg_frame, image=photo, bg= "#FFFFFF")
         self.username_icon_label.image = photo
         self.username_icon_label.place(x=105, y= 230) 
+        
 
         # =============== Password ================
         self.password_label = Label(self.lg_frame, text= "Password", bg="#FFFFFF",fg= "black", font=('yu gothic ui', 13, 'bold'))
         self.password_label.place(x=120, y=320)
 
         self.password_entry = Entry(self.lg_frame, highlightthickness=0, relief= FLAT, bg="#FFFFFF", fg="black", font=('yu gothic ui', 13, 'bold'), show='*')
+        self.password_entry.bind('<Return>', self.check_log)
         self.password_entry.place(x=150, y=356, width=240)
         self.password_line = Canvas(self.lg_frame, width= 350, height= 2.0, bg ="black", highlightthickness= 0)
         self.password_line.place(x=110, y=386)
@@ -86,7 +89,7 @@ class LoginForm():
         # =============== Login Button ================
         self.login = Button(self.lg_frame, text = "LOG IN", font=('yu gothic ui', 13, 'bold'), width=25, bd=2, bg='#3047ff', cursor='hand2', activebackground='#3047ff', fg="white", command=self.check_log)
         self.login.place(x=150, y=430)
-
+        
         # =============== Forgot Password ================
         self.forgot_button = Button(self.lg_frame, text= 'Forgot Password?', font=('yu gothic ui', 11, 'underline'), fg = 'black', width= 25, bd=0, bg='#FFFFFF', activebackground='#FFFFFF', cursor= 'hand2', command=self.toggle_fgp_forms)
         self.forgot_button.place(x=320, y=480)
@@ -107,6 +110,7 @@ class LoginForm():
 
         self.show_button = Button(self.lg_frame, image=self.show_image, command=self.show, relief=FLAT, activebackground="white", borderwidth=0, background="white", cursor="hand2")
         self.show_button.place(x=440, y=350)
+
     def setup_signup_form(self):
         self.su_frame = Frame(self.window, bg='#FFFFFF', width= 1280/8*6, height= 600)
         self.su_frame.place(x= 1280/8, y= 60)
@@ -132,7 +136,8 @@ class LoginForm():
         self.username_label.place(x=560, y=120)
 
         self.username_entry = Entry(self.su_frame, highlightthickness=0, relief= FLAT, bg="#FFFFFF", fg="black", font=('yu gothic ui', 12, 'bold') )
-        self.username_entry.focus()
+        self.username_entry.bind('<Return>', self.save)
+        self.username_entry.focus_set()
         self.username_entry.place(x=560, y=160, width=270)
         self.username_line = Canvas(self.su_frame, width= 350, height= 2.0, bg ="black", highlightthickness= 0)
         self.username_line.place(x=560,y=190)
@@ -150,6 +155,7 @@ class LoginForm():
 
         self.password_entry = Entry(self.su_frame, highlightthickness=0, relief= FLAT, bg="#FFFFFF", fg="black", font=('yu gothic ui', 13, 'bold'), show='*')
         self.password_entry.place(x=560, y=260, width=240)
+        self.password_entry.bind('<Return>', self.save)
         self.password_line = Canvas(self.su_frame, width= 350, height= 2.0, bg ="black", highlightthickness= 0)
         self.password_line.place(x=560, y=290)
 
@@ -175,6 +181,7 @@ class LoginForm():
         self.password_label.place(x=560, y=340)
         self.password_entry1 = Entry(self.su_frame, highlightthickness=0, relief= FLAT, bg="#FFFFFF", fg="black", font=('yu gothic ui', 13, 'bold'), show='*')
         self.password_entry1.place(x=560, y=380, width=240)
+        self.password_entry1.bind('<Return>', self.save)
         self.password_line = Canvas(self.su_frame, width= 350, height= 2.0, bg ="black", highlightthickness= 0)
         self.password_line.place(x=560, y=410)
 
@@ -197,6 +204,7 @@ class LoginForm():
         self.PIN_entry = Entry(self.su_frame, highlightthickness=0, relief= FLAT, bg="#FFFFFF", fg="black", font=('yu gothic ui', 13, 'bold'), validate='key')
         self.PIN_entry['validatecommand'] = (self.PIN_entry.register(self.validate_input), '%P')
         self.PIN_entry.place(x=780, y=440, width=240)
+        self.PIN_entry.bind('<Return>', self.save)
         self.PIN_line = Canvas(self.su_frame, width= 40, height= 2.0, bg ="black", highlightthickness= 0)
         self.PIN_line.place(x=780, y=470)
     
@@ -223,8 +231,9 @@ class LoginForm():
         self.username_label.place(x=560, y=120)
 
         self.username_entry = Entry(self.fgp_frame, highlightthickness=0, relief= FLAT, bg="#FFFFFF", fg="black", font=('yu gothic ui', 12, 'bold') )
-        self.username_entry.focus()
+        self.username_entry.focus_set()
         self.username_entry.place(x=560, y=160, width=270)
+        self.username_entry.bind('<Return>', self.update)
         self.username_line = Canvas(self.fgp_frame, width= 350, height= 2.0, bg ="black", highlightthickness= 0)
         self.username_line.place(x=560,y=190)
         
@@ -236,10 +245,12 @@ class LoginForm():
         self.username_icon_label.place(x=525, y= 155)
 
         # =============== PIN ================
+
         self.PIN_label = Label(self.fgp_frame, text= "Enter your registered PIN", bg="#FFFFFF",fg= "black", font=('yu gothic ui', 13, 'bold'))
         self.PIN_label.place(x=560, y=220)
         self.PIN_entry = Entry(self.fgp_frame, highlightthickness=0, relief= FLAT, bg="#FFFFFF", fg="black", font=('yu gothic ui', 13, 'bold'), validate='key')
         self.PIN_entry['validatecommand'] = (self.PIN_entry.register(self.validate_input), '%P')
+        self.PIN_entry.bind('<Return>', self.update)
         self.PIN_entry.place(x=820, y=220, width=240)
         self.PIN_line = Canvas(self.fgp_frame, width= 40, height= 2.0, bg ="black", highlightthickness= 0)
         self.PIN_line.place(x=820, y=250)
@@ -250,6 +261,7 @@ class LoginForm():
 
         self.password_entry = Entry(self.fgp_frame, highlightthickness=0, relief= FLAT, bg="#FFFFFF", fg="black", font=('yu gothic ui', 13, 'bold'), show='*')
         self.password_entry.place(x=560, y=340, width=240)
+        self.password_entry.bind('<Return>', self.update)
         self.password_line = Canvas(self.fgp_frame, width= 350, height= 2.0, bg ="black", highlightthickness= 0)
         self.password_line.place(x=560, y=370)
 
@@ -274,6 +286,7 @@ class LoginForm():
         self.password_label = Label(self.fgp_frame, text= "Confirm New Password", bg="#FFFFFF",fg= "black", font=('yu gothic ui', 13, 'bold'))
         self.password_label.place(x=560, y=430)
         self.password_entry1 = Entry(self.fgp_frame, highlightthickness=0, relief= FLAT, bg="#FFFFFF", fg="black", font=('yu gothic ui', 13, 'bold'), show='*')
+        self.password_entry1.bind('<Return>', self.update)
         self.password_entry1.place(x=560, y=470, width=240)
         self.password_line = Canvas(self.fgp_frame, width= 350, height= 2.0, bg ="black", highlightthickness= 0)
         self.password_line.place(x=560, y=500)
@@ -290,7 +303,7 @@ class LoginForm():
         self.updatep.place(x=610, y=530)
 
         
-    def save(self):
+    def save(self, even = None):
         username = self.username_entry.get()
         password = self.password_entry.get()
         confpass = self.password_entry1.get()
@@ -318,7 +331,7 @@ class LoginForm():
                 messagebox.showinfo(title= 'Congrats', message="Sign up successfully")
                 self.toggle_lgsu_forms()
 
-    def update(self):
+    def update(self, event = None):
         username = self.username_entry.get()
         password = self.password_entry.get()
         confpass = self.password_entry1.get()
@@ -350,7 +363,7 @@ class LoginForm():
                 messagebox.showinfo(title='Oops', message="Your credentials don't match an account in our system")
                 
     
-    def check_log(self):
+    def check_log(self, event = None):
         username = self.username_entry.get()
         password = self.password_entry.get()
         if check_user(username, password):
@@ -530,7 +543,7 @@ class UserInterface():
             LoginForm(window)
             window.mainloop()
     
-    def pass_change(self):
+    def pass_change(self, event = None):
         username = self.username
         cpassword = self.cpassword_entry.get()
         password = self.password_entry.get()
@@ -576,7 +589,8 @@ class UserInterface():
         self.cpassword_label.place(x=60, y= 140)
         self.cpassword_entry = Entry(self.chpass_frame, highlightthickness=0, relief= FLAT, bg=self.bg_color, fg=self.text_color, font=('yu gothic ui', 13, 'bold'), show='*')
         self.cpassword_entry.place(x=60, y=180, width=270)
-        self.cpassword_entry.focus()
+        self.cpassword_entry.focus_set()
+        self.cpassword_entry.bind('<Return>', self.pass_change)
         self.password_line = Canvas(self.chpass_frame, width= 300, height= 2.0, bg = self.text_color, highlightthickness= 0)
         self.password_line.place(x=60, y=210)
     
@@ -585,6 +599,7 @@ class UserInterface():
         self.password_label.place(x=60, y= 240)
         self.password_entry = Entry(self.chpass_frame, highlightthickness=0, relief= FLAT, bg=self.bg_color, fg=self.text_color, font=('yu gothic ui', 13, 'bold'), show='*')
         self.password_entry.place(x=60, y=280, width=270)
+        self.password_entry.bind('<Return>', self.pass_change)
         self.password_line = Canvas(self.chpass_frame, width= 300, height= 2.0, bg = self.text_color, highlightthickness= 0)
         self.password_line.place(x=60, y=310)
         
@@ -601,6 +616,7 @@ class UserInterface():
         self.password_label.place(x=60, y=360)
         self.password_entry1 = Entry(self.chpass_frame, highlightthickness=0, relief= FLAT, bg=self.bg_color, fg=self.text_color, font=('yu gothic ui', 13, 'bold'), show='*')
         self.password_entry1.place(x=60, y=400, width=270)
+        self.password_entry1.bind('<Return>', self.pass_change)
         self.password_line = Canvas(self.chpass_frame, width= 300, height= 2.0, bg=self.text_color, highlightthickness= 0)
         self.password_line.place(x=60, y=430)
 
@@ -609,6 +625,7 @@ class UserInterface():
         self.PIN_label.place(x=60, y=460)
         self.PIN_entry = Entry(self.chpass_frame, highlightthickness=0, relief= FLAT, bg=self.bg_color, fg=self.text_color, font=('yu gothic ui', 13, 'bold'), validate='key')
         self.PIN_entry['validatecommand'] = (self.PIN_entry.register(self.validate_input), '%P')
+        self.PIN_entry.bind('<Return>', self.pass_change)
         self.PIN_entry.place(x=270, y=460, width=240)
         self.PIN_line = Canvas(self.chpass_frame, width= 40, height= 2.0, bg =self.text_color, highlightthickness= 0)
         self.PIN_line.place(x=270, y=490)
